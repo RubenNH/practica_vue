@@ -8,6 +8,7 @@
           <h3 class="text-center">Peliculas</h3>
         </b-card-header>
         <b-card-body>
+          
           <!-- card where are gonna to show the filter options. search by name, directos, range of years, genres and by publish date -->
           <b-card>
             <b-card-body>
@@ -15,12 +16,18 @@
                 <b-row>
                   <b-col cols="12" md="4">
                     <b-form-group label="Nombre">
-                      <b-form-input v-model="seachForm.name" />
+                      <b-form-input v-model="seachForm.name" 
+                      required
+                      pattern="[A-Za-z]+"
+                      />
                     </b-form-group>
                   </b-col>
                   <b-col cols="12" md="4">
                     <b-form-group label="Director">
-                      <b-form-input v-model="seachForm.director" />
+                      <b-form-input v-model="seachForm.director"
+                      required
+                      pattern="[A-Za-z]+"
+                      />
                     </b-form-group>
                   </b-col>
                   <b-col cols="12" md="4">
@@ -36,20 +43,23 @@
                 <b-row>
                   <b-col cols="12" md="4">
                     <b-form-group label="Fecha de publicación">
-                      <b-datepicker v-model="seachForm.publishDate"></b-datepicker>
+                      <b-datepicker v-model="seachForm.publishDate" required></b-datepicker>
                     </b-form-group>
                   </b-col>
                   <b-col cols="12" md="4">
                     <b-form-group label="Año Inicio">
-                      <b-form-input v-model="seachForm.yearIni" type="number"></b-form-input>
+                      <b-form-input v-model="seachForm.yearIni" type="number"
+                      required
+                      ></b-form-input>
                     </b-form-group>
                   </b-col>
                   <b-col cols="12" md="4">
                     <b-form-group label="Año Final">
-                      <b-form-input v-model="seachForm.yearEnd" type="number"></b-form-input>
+                      <b-form-input v-model="seachForm.yearEnd" type="number"
+                      required
+                      ></b-form-input>
                     </b-form-group>
                   </b-col>
-
                   <b-col cols="12" md="12" class="mt-4">
                     <b-button type="submit" variant="primary" style="width: 100%;">Buscar</b-button>
                   </b-col>
@@ -57,12 +67,10 @@
               </b-form>
             </b-card-body>
           </b-card>
-
           <b-table striped hover :items="movies" :fields="fields" />
         </b-card-body>
       </b-card>
     </b-row>
-
   </b-container>
 </template>
     
@@ -120,6 +128,10 @@ export default {
       }
     },
     async onSubmit(evt) {
+      if(this.seachForm.yearIni > this.seachForm.yearEnd) {
+        alert("El año de INICIO es mayor que el año FINAL, ERROR 400.");
+        return false; 
+      }
       evt.preventDefault();
       try {
 
