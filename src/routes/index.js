@@ -91,6 +91,18 @@ const routes = [
                 component: () =>
                     import ("../components/Peliculas.vue")
             },
+            {
+                path: "/dragndrop",
+                name: "dragndrop",
+                component: () =>
+                    import ("../components/MoviesDragNDrop.vue")
+            },
+            {
+                path: "/dragNDropCreateMovie",
+                name: "dragNDropCreateMovie",
+                component: () =>
+                    import ("../components/DragNDropCreateMovie.vue")
+            }
         ]
     }
 ];
